@@ -2,42 +2,36 @@ import axios from "../axiosWrapper";
 
 import { VerboseResponseData, ShortResponseData } from "../../types/ingestion";
 import {
-  ProfilesSetPropertyItem,
-  ProfilesSetPropertyOnceItem,
-  ProfilesNumericalAddItem,
-  ProfilesUnion,
-  ProfilesUnionItem,
-  ProfilesListAppend,
-  ProfilesListAppendItem,
-  ProfilesListRemoveItem,
-  ProfilesListRemove,
-  ProfilesDeletePropertyItem,
-  ProfilesDeleteProperty,
-  ProfilesBatchUpdate,
-  ProfilesBatchUpdateItem,
-  DeleteProfilesItem,
-  DeleteProfiles,
+  ProfileSetItem,
+  ProfileSetPropertyOnceItem,
+  ProfileNumericalAddItem,
+  ProfileUnionItem,
+  ProfileListAppendItem,
+  ProfileListRemoveItem,
+  ProfileDeletePropertyItem,
+  ProfileBatchUpdateItem,
+  DeleteProfileItem,
 } from "../../types/ingestion";
 
 import headers from "../sharedHeaders";
 
-type ProfilesPostItem =
-  | ProfilesSetPropertyItem
-  | ProfilesSetPropertyOnceItem
-  | ProfilesNumericalAddItem
-  | ProfilesUnionItem
-  | ProfilesListAppendItem
-  | ProfilesListRemoveItem
-  | ProfilesDeletePropertyItem
-  | ProfilesBatchUpdateItem
-  | DeleteProfilesItem;
+type ProfilePostItem =
+  | ProfileSetItem
+  | ProfileSetPropertyOnceItem
+  | ProfileNumericalAddItem
+  | ProfileUnionItem
+  | ProfileListAppendItem
+  | ProfileListRemoveItem
+  | ProfileDeletePropertyItem
+  | ProfileBatchUpdateItem
+  | DeleteProfileItem;
 
-async function profilesPost<ProfilesPostItemType extends ProfilesPostItem>(
+async function profilePost<ProfilePostItemType extends ProfilePostItem>(
   subdirectory: string,
-  profiles: ProfilesPostItemType[],
+  profile: ProfilePostItemType[],
   verbose?: 1,
 ): Promise<VerboseResponseData | ShortResponseData> {
-  const response = await axios.post(subdirectory, profiles, {
+  const response = await axios.post(subdirectory, profile, {
     headers,
     params: {
       verbose,
@@ -47,100 +41,122 @@ async function profilesPost<ProfilesPostItemType extends ProfilesPostItem>(
   return response.data;
 }
 
-export async function profilesSetProperty(
-  profiles: ProfilesSetPropertyItem[],
+export async function profileSetProperty(
+  profile: ProfileSetItem[],
 ): Promise<ShortResponseData>;
-export async function profilesSetProperty(
-  profiles: ProfilesSetPropertyItem[],
+export async function profileSetProperty(
+  profile: ProfileSetItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profilesSetProperty(
-  profiles: ProfilesSetPropertyItem[],
+export async function profileSetProperty(
+  profile: ProfileSetItem[],
   verbose?: 1,
 ) {
-  return profilesPost("/engage#profile-set", profiles, verbose);
+  return profilePost("/engage#profile-set", profile, verbose);
 }
 
-export async function profilesSetPropertyOnce(
-  profiles: ProfilesSetPropertyOnceItem[],
+export async function profileSetPropertyOnce(
+  profile: ProfileSetPropertyOnceItem[],
 ): Promise<ShortResponseData>;
-export async function profilesSetPropertyOnce(
-  profiles: ProfilesSetPropertyOnceItem[],
+export async function profileSetPropertyOnce(
+  profile: ProfileSetPropertyOnceItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profilesSetPropertyOnce(
-  profiles: ProfilesSetPropertyOnceItem[],
+export async function profileSetPropertyOnce(
+  profile: ProfileSetPropertyOnceItem[],
   verbose?: 1,
 ) {
-  return profilesPost("/engage#profile-set-once", profiles, verbose);
+  return profilePost("/engage#profile-set-once", profile, verbose);
 }
 
-export async function profilesNumericalAdd(
-  profiles: ProfilesNumericalAddItem[],
+export async function profileNumericalAdd(
+  profile: ProfileNumericalAddItem[],
 ): Promise<ShortResponseData>;
-export async function profilesNumericalAdd(
-  profiles: ProfilesNumericalAddItem[],
+export async function profileNumericalAdd(
+  profile: ProfileNumericalAddItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profilesNumericalAdd(
-  profiles: ProfilesNumericalAddItem[],
+export async function profileNumericalAdd(
+  profile: ProfileNumericalAddItem[],
   verbose?: 1,
 ) {
-  return profilesPost("/engage#profile-numerical-add", profiles, verbose);
+  return profilePost("/engage#profile-numerical-add", profile, verbose);
 }
 
-export async function profilesUnion(
-  profiles: ProfilesUnionItem[],
+export async function profileUnion(
+  profile: ProfileUnionItem[],
 ): Promise<ShortResponseData>;
-export async function profilesUnion(
-  profiles: ProfilesUnionItem[],
+export async function profileUnion(
+  profile: ProfileUnionItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profilesUnion(
-  profiles: ProfilesUnionItem[],
-  verbose?: 1,
-) {
-  return profilesPost("/engage#profile-union", profiles, verbose);
+export async function profileUnion(profile: ProfileUnionItem[], verbose?: 1) {
+  return profilePost("/engage#profile-union", profile, verbose);
 }
 
-export async function profilesListAppend(
-  profiles: ProfilesListAppendItem[],
+export async function profileListAppend(
+  profile: ProfileListAppendItem[],
 ): Promise<ShortResponseData>;
-export async function profilesListAppend(
-  profiles: ProfilesListAppendItem[],
+export async function profileListAppend(
+  profile: ProfileListAppendItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profilesListAppend(
-  profiles: ProfilesListAppendItem[],
+export async function profileListAppend(
+  profile: ProfileListAppendItem[],
   verbose?: 1,
 ) {
-  return profilesPost("/engage#profile-list-append", profiles, verbose);
+  return profilePost("/engage#profile-list-append", profile, verbose);
 }
 
-export async function profilesListRemove(
-  profiles: ProfilesListRemoveItem[],
+export async function profileListRemove(
+  profile: ProfileListRemoveItem[],
 ): Promise<ShortResponseData>;
-export async function profilesListRemove(
-  profiles: ProfilesListRemoveItem[],
+export async function profileListRemove(
+  profile: ProfileListRemoveItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profilesListRemove(
-  profiles: ProfilesListRemoveItem[],
+export async function profileListRemove(
+  profile: ProfileListRemoveItem[],
   verbose?: 1,
 ) {
-  return profilesPost("/engage#profile-list-remove", profiles, verbose);
+  return profilePost("/engage#profile-list-remove", profile, verbose);
 }
 
-export async function profilesUnset(
-  profiles: ProfilesDeletePropertyItem[],
+export async function profileUnset(
+  profile: ProfileDeletePropertyItem[],
 ): Promise<ShortResponseData>;
-export async function profilesUnset(
-  profiles: ProfilesDeletePropertyItem[],
+export async function profileUnset(
+  profile: ProfileDeletePropertyItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profilesUnset(
-  profiles: ProfilesDeletePropertyItem[],
+export async function profileUnset(
+  profile: ProfileDeletePropertyItem[],
   verbose?: 1,
 ) {
-  return profilesPost("/engage#profile-unset", profiles, verbose);
+  return profilePost("/engage#profile-unset", profile, verbose);
+}
+
+export async function profileBatchUpdate(
+  profile: ProfileBatchUpdateItem[],
+): Promise<ShortResponseData>;
+export async function profileBatchUpdate(
+  profile: ProfileBatchUpdateItem[],
+  verbose: 1,
+): Promise<VerboseResponseData>;
+export async function profileBatchUpdate(
+  profile: ProfileBatchUpdateItem[],
+  verbose?: 1,
+) {
+  return profilePost("/engage#profile-batch-update", profile, verbose);
+}
+
+export async function profileDelete(
+  profile: DeleteProfileItem[],
+): Promise<ShortResponseData>;
+export async function profileDelete(
+  profile: DeleteProfileItem[],
+  verbose: 1,
+): Promise<VerboseResponseData>;
+export async function profileDelete(profile: DeleteProfileItem[], verbose?: 1) {
+  return profilePost("/engage#profile-delete", profile, verbose);
 }
