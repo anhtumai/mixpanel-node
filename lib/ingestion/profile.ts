@@ -1,11 +1,9 @@
 import axios from "../axiosWrapper";
 
+import { VerboseResponseData, ShortResponseData } from "../../types/ingestion";
 import {
-  ProfilesSetProperty,
   ProfilesSetPropertyItem,
-  ProfilesSetPropertyOnce,
   ProfilesSetPropertyOnceItem,
-  ProfilesNumericalAdd,
   ProfilesNumericalAddItem,
   ProfilesUnion,
   ProfilesUnionItem,
@@ -23,137 +21,126 @@ import {
 
 import headers from "../sharedHeaders";
 
-export async function profilesSetProperty({
-  profiles,
-  queryParams = {},
-}: {
-  profiles: ProfilesSetPropertyItem[];
-  queryParams?: ProfilesSetProperty["QueryParams"];
-}): Promise<ProfilesSetProperty["ResponseData"]> {
-  const response = await axios.post("/engage#profile-set", profiles, {
+type ProfilesPostItem =
+  | ProfilesSetPropertyItem
+  | ProfilesSetPropertyOnceItem
+  | ProfilesNumericalAddItem
+  | ProfilesUnionItem
+  | ProfilesListAppendItem
+  | ProfilesListRemoveItem
+  | ProfilesDeletePropertyItem
+  | ProfilesBatchUpdateItem
+  | DeleteProfilesItem;
+
+async function profilesPost<ProfilesPostItemType extends ProfilesPostItem>(
+  subdirectory: string,
+  profiles: ProfilesPostItemType[],
+  verbose?: 1,
+): Promise<VerboseResponseData | ShortResponseData> {
+  const response = await axios.post(subdirectory, profiles, {
     headers,
-    params: queryParams,
+    params: {
+      verbose,
+    },
   });
 
   return response.data;
 }
 
-export async function profilesSetPropertyOnce({
-  profiles,
-  queryParams = {},
-}: {
-  profiles: ProfilesSetPropertyOnceItem[];
-  queryParams?: ProfilesSetPropertyOnce["QueryParams"];
-}): Promise<ProfilesSetPropertyOnce["ResponseData"]> {
-  const response = await axios.post("/engage#profile-set-once", profiles, {
-    headers,
-    params: queryParams,
-  });
-
-  return response.data;
+export async function profilesSetProperty(
+  profiles: ProfilesSetPropertyItem[],
+): Promise<ShortResponseData>;
+export async function profilesSetProperty(
+  profiles: ProfilesSetPropertyItem[],
+  verbose: 1,
+): Promise<VerboseResponseData>;
+export async function profilesSetProperty(
+  profiles: ProfilesSetPropertyItem[],
+  verbose?: 1,
+) {
+  return profilesPost("/engage#profile-set", profiles, verbose);
 }
 
-export async function profilesNumericalAdd({
-  profiles,
-  queryParams = {},
-}: {
-  profiles: ProfilesNumericalAddItem[];
-  queryParams?: ProfilesNumericalAdd["QueryParams"];
-}): Promise<ProfilesNumericalAdd["ResponseData"]> {
-  const response = await axios.post("/engage#profile-numerical-add", profiles, {
-    headers,
-    params: queryParams,
-  });
-
-  return response.data;
+export async function profilesSetPropertyOnce(
+  profiles: ProfilesSetPropertyOnceItem[],
+): Promise<ShortResponseData>;
+export async function profilesSetPropertyOnce(
+  profiles: ProfilesSetPropertyOnceItem[],
+  verbose: 1,
+): Promise<VerboseResponseData>;
+export async function profilesSetPropertyOnce(
+  profiles: ProfilesSetPropertyOnceItem[],
+  verbose?: 1,
+) {
+  return profilesPost("/engage#profile-set-once", profiles, verbose);
 }
 
-export async function profilesUnion({
-  profiles,
-  queryParams = {},
-}: {
-  profiles: ProfilesUnionItem[];
-  queryParams?: ProfilesUnion["QueryParams"];
-}): Promise<ProfilesUnion["ResponseData"]> {
-  const response = await axios.post("/engage#profile-union", profiles, {
-    headers,
-    params: queryParams,
-  });
-
-  return response.data;
+export async function profilesNumericalAdd(
+  profiles: ProfilesNumericalAddItem[],
+): Promise<ShortResponseData>;
+export async function profilesNumericalAdd(
+  profiles: ProfilesNumericalAddItem[],
+  verbose: 1,
+): Promise<VerboseResponseData>;
+export async function profilesNumericalAdd(
+  profiles: ProfilesNumericalAddItem[],
+  verbose?: 1,
+) {
+  return profilesPost("/engage#profile-numerical-add", profiles, verbose);
 }
 
-export async function profilesListAppend({
-  profiles,
-  queryParams = {},
-}: {
-  profiles: ProfilesListAppendItem[];
-  queryParams?: ProfilesListAppend["QueryParams"];
-}): Promise<ProfilesListAppend["ResponseData"]> {
-  const response = await axios.post("/engage#profile-list-append", profiles, {
-    headers,
-    params: queryParams,
-  });
-
-  return response.data;
+export async function profilesUnion(
+  profiles: ProfilesUnionItem[],
+): Promise<ShortResponseData>;
+export async function profilesUnion(
+  profiles: ProfilesUnionItem[],
+  verbose: 1,
+): Promise<VerboseResponseData>;
+export async function profilesUnion(
+  profiles: ProfilesUnionItem[],
+  verbose?: 1,
+) {
+  return profilesPost("/engage#profile-union", profiles, verbose);
 }
 
-export async function profilesListRemove({
-  profiles,
-  queryParams = {},
-}: {
-  profiles: ProfilesListRemoveItem[];
-  queryParams?: ProfilesListRemove["QueryParams"];
-}): Promise<ProfilesListRemove["ResponseData"]> {
-  const response = await axios.post("/engage#profile-list-remove", profiles, {
-    headers,
-    params: queryParams,
-  });
-
-  return response.data;
+export async function profilesListAppend(
+  profiles: ProfilesListAppendItem[],
+): Promise<ShortResponseData>;
+export async function profilesListAppend(
+  profiles: ProfilesListAppendItem[],
+  verbose: 1,
+): Promise<VerboseResponseData>;
+export async function profilesListAppend(
+  profiles: ProfilesListAppendItem[],
+  verbose?: 1,
+) {
+  return profilesPost("/engage#profile-list-append", profiles, verbose);
 }
 
-export async function profilesDeleteProperty({
-  profiles,
-  queryParams = {},
-}: {
-  profiles: ProfilesDeletePropertyItem[];
-  queryParams?: ProfilesDeleteProperty["QueryParams"];
-}): Promise<ProfilesDeleteProperty["ResponseData"]> {
-  const response = await axios.post("/engage#profile-unset", profiles, {
-    headers,
-    params: queryParams,
-  });
-
-  return response.data;
+export async function profilesListRemove(
+  profiles: ProfilesListRemoveItem[],
+): Promise<ShortResponseData>;
+export async function profilesListRemove(
+  profiles: ProfilesListRemoveItem[],
+  verbose: 1,
+): Promise<VerboseResponseData>;
+export async function profilesListRemove(
+  profiles: ProfilesListRemoveItem[],
+  verbose?: 1,
+) {
+  return profilesPost("/engage#profile-list-remove", profiles, verbose);
 }
 
-export async function profilesBatchUpdate({
-  profiles,
-  queryParams = {},
-}: {
-  profiles: ProfilesBatchUpdateItem[];
-  queryParams?: ProfilesBatchUpdate["QueryParams"];
-}): Promise<ProfilesBatchUpdate["ResponseData"]> {
-  const response = await axios.post("/engage#profile-batch-update", profiles, {
-    headers,
-    params: queryParams,
-  });
-
-  return response.data;
-}
-
-export async function deleteProfiles({
-  profiles,
-  queryParams = {},
-}: {
-  profiles: DeleteProfilesItem[];
-  queryParams?: DeleteProfiles["QueryParams"];
-}): Promise<DeleteProfiles["ResponseData"]> {
-  const response = await axios.post("/engage#delete-profile", profiles, {
-    headers,
-    params: queryParams,
-  });
-
-  return response.data;
+export async function profilesUnset(
+  profiles: ProfilesDeletePropertyItem[],
+): Promise<ShortResponseData>;
+export async function profilesUnset(
+  profiles: ProfilesDeletePropertyItem[],
+  verbose: 1,
+): Promise<VerboseResponseData>;
+export async function profilesUnset(
+  profiles: ProfilesDeletePropertyItem[],
+  verbose?: 1,
+) {
+  return profilesPost("/engage#profile-unset", profiles, verbose);
 }
