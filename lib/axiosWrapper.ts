@@ -7,7 +7,7 @@ const serverRegion = {
 
 axios.defaults.baseURL = serverRegion.us;
 
-export function configureAxios({ region }: { region: "eu" | "us" }) {
+export function configureMixpanelRegion({ region }: { region: "eu" | "us" }) {
   axios.defaults.baseURL = serverRegion[region];
 }
 
