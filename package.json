@@ -1,8 +1,18 @@
 {
   "name": "mixpanel-node",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "Mixpanel API wrapper for Node.Js Typescript",
+  "keywords": [
+    "mixpanel",
+    "data-analytics"
+  ],
+  "main": "lib/mixpanel.ts",
+  "homepage": "https://github.com/anhtumai/mixpanel-node",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:anhtumai/mixpanel-node.git"
+  },
+  "bugs": "https://github.com/anhtumai/mixpanel-node/issues",
   "dependencies": {
     "axios": "0.27.2",
     "dotenv": "^16.0.1",
@@ -18,6 +28,6 @@
   "scripts": {
     "codegen": "npx openapi-typescript  https://dash.readme.com/api/v1/api-registry/260uf4wkzq3unav --output scripts/openapi_schema.ts"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "anhtumai <tu.mai@outlook.com> (https://github.com/anhtumai)",
+  "license": "MIT"
 }
