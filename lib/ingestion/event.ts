@@ -1,5 +1,7 @@
 import { AxiosBasicCredentials } from "axios";
 
+import { ShortResponseData, VerboseResponseData } from "../../types/ingestion";
+
 import axios from "../../lib/axiosWrapper";
 import headers from "../sharedHeaders";
 
@@ -17,7 +19,6 @@ type StrictImportEventResponseData = {
   num_records_imported: number;
   status: "OK" | string;
 };
-type NonstrictImportEventResponseData = 0 | 1;
 
 export type StrictImportEventResponseErrorData = {
   code: number;
@@ -41,11 +42,6 @@ type TrackEventItem = {
     [key: string]: unknown;
   };
 };
-type VerboseTrackEventResponseData = {
-  error: string | null;
-  status: 0 | 1;
-};
-type ShortTrackEventResponseData = 0 | 1;
 
 export async function importEvents({
   projectId,
@@ -57,7 +53,7 @@ export async function importEvents({
   events: ImportEventItem[];
   auth: AxiosBasicCredentials;
   strict?: 0;
-}): Promise<NonstrictImportEventResponseData>;
+}): Promise<ShortResponseData>;
 export async function importEvents({
   projectId,
   events,
@@ -79,7 +75,7 @@ export async function importEvents({
   events: ImportEventItem[];
   auth: AxiosBasicCredentials;
   strict?: 0 | 1;
-}): Promise<StrictImportEventResponseData | NonstrictImportEventResponseData> {
+}): Promise<StrictImportEventResponseData | ShortResponseData> {
   const response = await axios.post("/import", events, {
     headers,
     params: {
@@ -95,15 +91,15 @@ export async function importEvents({
 export async function trackEvents(
   events: TrackEventItem[],
   verbose?: 0,
-): Promise<ShortTrackEventResponseData>;
+): Promise<ShortResponseData>;
 export async function trackEvents(
   events: TrackEventItem[],
   verbose: 1,
-): Promise<VerboseTrackEventResponseData>;
+): Promise<ShortResponseData>;
 export async function trackEvents(
   events: TrackEventItem[],
   verbose?: 0 | 1,
-): Promise<VerboseTrackEventResponseData | ShortTrackEventResponseData> {
+): Promise<VerboseResponseData | ShortResponseData> {
   const response = await axios.post("/track", events, {
     headers,
     params: {
