@@ -5,7 +5,7 @@ import { ShortResponseData, VerboseResponseData } from "../../types/ingestion";
 import axios from "../axiosWrapper";
 import headers from "../sharedHeaders";
 
-type ImportEventItem = {
+export type ImportEventItem = {
   event: string;
   properties: {
     time: number;
@@ -14,7 +14,8 @@ type ImportEventItem = {
     [key: string]: unknown;
   };
 };
-type StrictImportEventResponseData = {
+
+export type StrictImportEventResponseData = {
   code: 200 | number;
   num_records_imported: number;
   status: "OK" | string;
@@ -32,7 +33,7 @@ export type StrictImportEventResponseErrorData = {
   status: string;
 };
 
-type TrackEventItem = {
+export type TrackEventItem = {
   event: string;
   properties: {
     time: number;

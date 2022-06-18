@@ -16,6 +16,18 @@ import {
 
 import headers from "../sharedHeaders";
 
+export type {
+  ProfileSetItem,
+  ProfileSetPropertyOnceItem,
+  ProfileNumericalAddItem,
+  ProfileUnionItem,
+  ProfileListAppendItem,
+  ProfileListRemoveItem,
+  ProfileDeletePropertyItem,
+  ProfileBatchUpdateItem,
+  DeleteProfileItem,
+};
+
 type ProfilePostItem =
   | ProfileSetItem
   | ProfileSetPropertyOnceItem
