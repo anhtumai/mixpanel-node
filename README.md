@@ -100,7 +100,7 @@ To configure axios, you can import `mixpanelAxios` from `mixpanel-node`
 ```typescript
 import axiosRetry from "axios-retry";
 
-import { axiosWrapper } from "mixpanel-node";
+import { mixpanelAxios } from "mixpanel-node";
 
-axiosRetry(axiosWrapper, { retries: 3 });
+axiosRetry(mixpanelAxios, { retries: 3 });
 ```
