@@ -1,5 +1,5 @@
-import axiosWrapper, { configureMixpanelRegion } from "./axiosWrapper";
+import mixpanelAxios, { configureMixpanelRegion } from "./axiosWrapper";
 
-export { axiosWrapper, configureMixpanelRegion };
+export { mixpanelAxios, configureMixpanelRegion };
 
 export * as mixpanelIngestion from "./ingestion";

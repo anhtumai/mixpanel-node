@@ -1,8 +1,7 @@
 import axios from "../axiosWrapper";
 
+import { VerboseResponseData, ShortResponseData } from "../../types/ingestion";
 import {
-  VerboseResponseData,
-  ShortResponseData,
   ProfileSetItem,
   ProfileSetPropertyOnceItem,
   ProfileNumericalAddItem,
@@ -12,21 +11,9 @@ import {
   ProfileDeletePropertyItem,
   ProfileBatchUpdateItem,
   DeleteProfileItem,
-} from "../../types/ingestion";
+} from "../../types/ingestion/profile";
 
 import headers from "../sharedHeaders";
-
-export type {
-  ProfileSetItem,
-  ProfileSetPropertyOnceItem,
-  ProfileNumericalAddItem,
-  ProfileUnionItem,
-  ProfileListAppendItem,
-  ProfileListRemoveItem,
-  ProfileDeletePropertyItem,
-  ProfileBatchUpdateItem,
-  DeleteProfileItem,
-};
 
 type ProfilePostItem =
   | ProfileSetItem
@@ -39,7 +26,7 @@ type ProfilePostItem =
   | ProfileBatchUpdateItem
   | DeleteProfileItem;
 
-async function profilePost<ProfilePostItemType extends ProfilePostItem>(
+async function post<ProfilePostItemType extends ProfilePostItem>(
   subdirectory: string,
   profiles: ProfilePostItemType[],
   verbose?: 1,
@@ -54,113 +41,110 @@ async function profilePost<ProfilePostItemType extends ProfilePostItem>(
   return response.data;
 }
 
-export async function profileSetProperty(
+export async function setProperty(
   profiles: ProfileSetItem[],
 ): Promise<ShortResponseData>;
-export async function profileSetProperty(
+export async function setProperty(
   profiles: ProfileSetItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profileSetProperty(
-  profiles: ProfileSetItem[],
-  verbose?: 1,
-) {
-  return profilePost("/engage#profile-set", profiles, verbose);
+export async function setProperty(profiles: ProfileSetItem[], verbose?: 1) {
+  return post("/engage#profile-set", profiles, verbose);
 }
 
-export async function profileSetPropertyOnce(
+export async function setPropertyOnce(
   profiles: ProfileSetPropertyOnceItem[],
 ): Promise<ShortResponseData>;
-export async function profileSetPropertyOnce(
+export async function setPropertyOnce(
   profiles: ProfileSetPropertyOnceItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profileSetPropertyOnce(
+export async function setPropertyOnce(
   profiles: ProfileSetPropertyOnceItem[],
   verbose?: 1,
 ) {
-  return profilePost("/engage#profile-set-once", profiles, verbose);
+  return post("/engage#profile-set-once", profiles, verbose);
 }
 
-export async function profileNumericalAdd(
+export async function numericalAdd(
   profiles: ProfileNumericalAddItem[],
 ): Promise<ShortResponseData>;
-export async function profileNumericalAdd(
+export async function numericalAdd(
   profiles: ProfileNumericalAddItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profileNumericalAdd(
+export async function numericalAdd(
   profiles: ProfileNumericalAddItem[],
   verbose?: 1,
 ) {
-  return profilePost("/engage#profile-numerical-add", profiles, verbose);
+  return post("/engage#profile-numerical-add", profiles, verbose);
 }
 
-export async function profileUnion(
+export async function union(
   profiles: ProfileUnionItem[],
 ): Promise<ShortResponseData>;
-export async function profileUnion(
+export async function union(
   profiles: ProfileUnionItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profileUnion(profiles: ProfileUnionItem[], verbose?: 1) {
-  return profilePost("/engage#profile-union", profiles, verbose);
+export async function union(profiles: ProfileUnionItem[], verbose?: 1) {
+  return post("/engage#profile-union", profiles, verbose);
 }
 
-export async function profileListAppend(
+export async function listAppend(
   profiles: ProfileListAppendItem[],
 ): Promise<ShortResponseData>;
-export async function profileListAppend(
+export async function listAppend(
   profiles: ProfileListAppendItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profileListAppend(
+export async function listAppend(
   profiles: ProfileListAppendItem[],
   verbose?: 1,
 ) {
-  return profilePost("/engage#profile-list-append", profiles, verbose);
+  return post("/engage#profile-list-append", profiles, verbose);
 }
 
-export async function profileListRemove(
+export async function listRemove(
   profiles: ProfileListRemoveItem[],
 ): Promise<ShortResponseData>;
-export async function profileListRemove(
+export async function listRemove(
   profiles: ProfileListRemoveItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profileListRemove(
+export async function listRemove(
   profiles: ProfileListRemoveItem[],
   verbose?: 1,
 ) {
-  return profilePost("/engage#profile-list-remove", profiles, verbose);
+  return post("/engage#profile-list-remove", profiles, verbose);
 }
 
-export async function profileUnset(
+export async function unset(
   profiles: ProfileDeletePropertyItem[],
 ): Promise<ShortResponseData>;
-export async function profileUnset(
+export async function unset(
   profiles: ProfileDeletePropertyItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profileUnset(
+export async function unset(
   profiles: ProfileDeletePropertyItem[],
   verbose?: 1,
 ) {
-  return profilePost("/engage#profile-unset", profiles, verbose);
+  return post("/engage#profile-unset", profiles, verbose);
 }
 
-export async function profileBatchUpdate(
+export async function batchUpdate(
   profiles: ProfileBatchUpdateItem[],
 ): Promise<ShortResponseData>;
-export async function profileBatchUpdate(
+export async function batchUpdate(
   profiles: ProfileBatchUpdateItem[],
   verbose: 1,
 ): Promise<VerboseResponseData>;
-export async function profileBatchUpdate(
+export async function batchUpdate(
   profiles: ProfileBatchUpdateItem[],
   verbose?: 1,
 ) {
-  return profilePost("/engage#profile-batch-update", profiles, verbose);
+  return post("/engage#profile-batch-update", profiles, verbose);
 }
 
 export async function profileDelete(
@@ -174,5 +158,5 @@ export async function profileDelete(
   profiles: DeleteProfileItem[],
   verbose?: 1,
 ) {
-  return profilePost("/engage#profile-delete", profiles, verbose);
+  return post("/engage#profile-delete", profiles, verbose);
 }

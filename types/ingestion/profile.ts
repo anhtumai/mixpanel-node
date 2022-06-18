@@ -1,11 +1,4 @@
-import { operations } from "./openapi_schema";
-
-export type VerboseResponseData = {
-  error: string | null;
-  status: 0 | 1;
-};
-
-export type ShortResponseData = 0 | 1;
+import { operations } from "../openapi_schema";
 
 type ProfileSetBodyParams =
   operations["profile-set"]["requestBody"]["content"]["application/json"];
