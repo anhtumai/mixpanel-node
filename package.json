@@ -6,7 +6,7 @@
     "mixpanel",
     "data-analytics"
   ],
-  "main": "lib/mixpanel.ts",
+  "main": "mixpanel.ts",
   "homepage": "https://github.com/anhtumai/mixpanel-node",
   "repository": {
     "type": "git",

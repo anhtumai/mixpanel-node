@@ -1,7 +1,8 @@
 import axios from "../axiosWrapper";
 
-import { VerboseResponseData, ShortResponseData } from "../../types/ingestion";
 import {
+  VerboseResponseData,
+  ShortResponseData,
   ProfileSetItem,
   ProfileSetPropertyOnceItem,
   ProfileNumericalAddItem,
@@ -11,7 +12,7 @@ import {
   ProfileDeletePropertyItem,
   ProfileBatchUpdateItem,
   DeleteProfileItem,
-} from "../../types/ingestion";
+} from "../types/ingestion";
 
 import headers from "../sharedHeaders";
 
