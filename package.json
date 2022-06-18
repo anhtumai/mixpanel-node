@@ -1,12 +1,13 @@
 {
   "name": "mixpanel-node",
-  "version": "0.0.1",
+  "version": "0.0.3",
+  "main": "./dist/mixpanel.js",
+  "types": "./dist/mixpanel.d.ts",
   "description": "Mixpanel API wrapper for Node.Js Typescript",
   "keywords": [
     "mixpanel",
     "data-analytics"
   ],
-  "main": "mixpanel.ts",
   "homepage": "https://github.com/anhtumai/mixpanel-node",
   "repository": {
     "type": "git",

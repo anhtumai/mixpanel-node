@@ -12,7 +12,7 @@ import {
   ProfileDeletePropertyItem,
   ProfileBatchUpdateItem,
   DeleteProfileItem,
-} from "../types/ingestion";
+} from "../../types/ingestion";
 
 import headers from "../sharedHeaders";
 

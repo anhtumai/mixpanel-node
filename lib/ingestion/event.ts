@@ -1,6 +1,6 @@
 import { AxiosBasicCredentials } from "axios";
 
-import { ShortResponseData, VerboseResponseData } from "../types/ingestion";
+import { ShortResponseData, VerboseResponseData } from "../../types/ingestion";
 
 import axios from "../axiosWrapper";
 import headers from "../sharedHeaders";
