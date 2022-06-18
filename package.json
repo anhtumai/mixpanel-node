@@ -1,6 +1,6 @@
 {
   "name": "mixpanel-node",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./dist/mixpanel.js",
   "types": "./dist/mixpanel.d.ts",
   "description": "Mixpanel API wrapper for Node.Js Typescript",
